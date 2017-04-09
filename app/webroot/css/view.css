@@ -1,0 +1,62 @@
+*{
+	word-break:break-all;/* 文字列の折り返し */
+}
+
+body{
+	background-color:#eeeeee;
+}
+
+.demo-card-square.mdl-card{
+  width:320px;
+}
+
+.demo-card-square>.mdl-card__title{
+  color:#fff;
+  height:180px;
+}
+
+.mdl-card__title-text{
+	-webkit-text-stroke:1px black;
+}
+
+.mdl-card__actions{
+	text-align:center;
+}
+
+.cards {
+  width: 100%;
+  margin-top:50px;
+  margin-bottom:20px;
+  margin-right:auto;
+  margin-left:auto;
+}
+
+.icon{
+	height:32px;
+	width:32px;
+	border-radius: 50%;
+}
+
+.contents{
+	margin-top: 10px;
+	margin-right:15px;
+	margin-left:15px;
+	margin-bottom:10px;
+}
+
+.content{
+	margin-bottom:10px;
+}
+
+.username{
+	font-weight:bold;
+}
+
+.page{
+	text-align:center;
+	font-size:1.5em;
+	margin-bottom:15px;
+}
+.page a{
+	color:#1E90FF;
+}
