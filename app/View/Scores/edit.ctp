@@ -108,7 +108,7 @@
         			<button id="tweet" class="btn btn-info btn-block">
         				ツイート
         			</button>
-        			<a href="<?php echo $this->Html->url('/Scores/view',true); ?>" class="btn btn-warning btn-block">
+        			<a href="<?php echo $this->Html->url('/Scores/view'); ?>" class="btn btn-warning btn-block">
         				作品一覧
         			</a>
        			</div>
