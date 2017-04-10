@@ -4,9 +4,9 @@
 	<?php echo $this->element("meta"); ?>
 	<!-- phpとjsの変数の関連付け -->
 	<script>
-	const SAVE_URL="<?php echo $this->Html->url('/Scores/save',true); ?>";
-	const INDEX_URL="<?php echo $this->Html->url('/Scores/index',true); ?>";
-	const VIEW_URL="<?php echo $this->Html->url('/Scores/view',true); ?>";
+	const SAVE_URL="<?php echo $this->Html->url('/Scores/save'); ?>";
+	const INDEX_URL="<?php echo $this->Html->url('/Scores/index'); ?>";
+	const VIEW_URL="<?php echo $this->Html->url('/Scores/view'); ?>";
 	let comment="<?php if(isset($comment))echo $comment; ?>";
 	let userName="<?php if(isset($user_name))echo $user_name; ?>";
 	let videoId="<?php if(isset($video_id))echo $video_id; ?>";
