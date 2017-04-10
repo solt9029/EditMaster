@@ -170,19 +170,6 @@ function onYouTubeIframeAPIReady(){
 			player.fit("top-component-inner");
 		});
 
-		$("#gotoView").click(function(){
-			if(window.confirm("編集は保存されていません。\n作品一覧に移動しますか？")){
-				window.location=VIEW_URL;
-			}
-		});
-
-		//編集中からトップに移動するときの確認
-		$("#gotoIndex").click(function(){
-			if(window.confirm("編集は保存されていません。\nトップに移動しますか？")){
-				window.location=INDEX_URL;
-			}
-		});
-
 		$("#save").click(function(){
 			let req={
 				"username":userName,

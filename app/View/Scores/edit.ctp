@@ -5,8 +5,8 @@
 	<!-- phpとjsの変数の関連付け -->
 	<script>
 	const SAVE_URL="<?php echo $this->Html->url('/Scores/save'); ?>";
-	const INDEX_URL="<?php echo $this->Html->url('/Scores/index'); ?>";
-	const VIEW_URL="<?php echo $this->Html->url('/Scores/view'); ?>";
+	//const INDEX_URL="<?php echo $this->Html->url('/Scores/index'); ?>";
+	//const VIEW_URL="<?php echo $this->Html->url('/Scores/view'); ?>";
 	let comment="<?php if(isset($comment))echo $comment; ?>";
 	let userName="<?php if(isset($user_name))echo $user_name; ?>";
 	let videoId="<?php if(isset($video_id))echo $video_id; ?>";
@@ -71,13 +71,13 @@
         			<span class="icon-bar"></span>
         			<span class="icon-bar"></span>
       			</button>
-      			<?php echo $this->Html->link("","/Scores/index",array('class'=>array('navbar-brand',"logo"))); ?>
-     			<a id="gotoIndex" class="navbar-brand">創作の達人</a>
+      			<?php echo $this->Html->link("","/Scores/index",array('class'=>array('navbar-brand',"logo"),"target"=>"_blank")); ?>
+     			<?php echo $this->Html->link("創作の達人","/Scores/index",array('class'=>'navbar-brand',"target"=>"_blank")); ?>
     		</div>
     		<div id="navbar" class="collapse navbar-collapse">
       			<ul class="nav navbar-nav">
        				<li class="active"><a>創作</a></li>
-       				<li><a id="gotoView">作品一覧</a></li>
+       				<li><?php echo $this->Html->link("作品一覧","/Scores/view",array("target"=>"_blank")); ?></li>
        				<li><?php echo $this->Html->link("ヘルプ","/Scores/help",array("target"=>"_blank")); ?></li>
       			</ul>
       			<form class="navbar-form">
