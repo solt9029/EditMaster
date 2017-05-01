@@ -91,5 +91,28 @@ class ScoresController extends AppController{
 
         $this->set("scores",$scores);
 	}
+
+    public function dev(){
+        $this->loadModel("YouTubeData");
+        $this->loadModel("Twitter");
+        $scores=$this->paginate("Score");
+
+        for($i=0; $i<count($scores); $i++){
+            //$scores[$i]["Score"]["videotitle"]=$this->YouTubeData->getTitle($scores[$i]["Score"]["videoid"]);
+
+            //ユーザ名が＠から始まる場合はそのIDからTwitterのアイコンを取得する
+            $first_letter=mb_substr($scores[$i]["Score"]["username"],0,1);
+            $scores[$i]["Score"]["iconurl"]="http://solt9029.sakura.ne.jp/Tests/don.png";//デフォルトのアイコン画像はどん
+            if($first_letter==="@" || $first_letter==="＠"){
+                $scores[$i]["Score"]["iconurl"]=$this->Twitter->getIcon(mb_substr($scores[$i]["Score"]["username"],1));
+            }
+        }
+
+        $this->set("scores",$scores);
+    }
+
+    public function devView(){
+        
+    }
 }
 ?>
