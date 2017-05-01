@@ -1,0 +1,17 @@
+web:
+  build: .
+  ports:
+    - "8007:80"
+  links:
+    - db
+  volumes:
+    - ../:/var/www/html
+    - ./httpd:/etc/httpd/conf
+db:
+  image: "mysql:5"
+  volumes:
+    - ./mysql:/etc/mysql/conf.d
+    - ./sql:/docker-entrypoint-initdb.d
+  environment:
+    MYSQL_ROOT_PASSWORD: phpapptest
+    MYSQL_DATABASE: editmaster
