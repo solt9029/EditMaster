@@ -136,7 +136,6 @@
 					<div class="split-pane fixed-left">
 						<div class="split-pane-component" id="left-component">
 							<div class="pretty-split-pane-component-inner inner">
-								<div id="video" class="display-none"></div>
 								<div id="form" class="form">
 									<div class="form-group">
 										<label>ユーザ名</label>
@@ -167,7 +166,7 @@
 								   		<button class="btn btn-success btn-lg btn-block" id="addRow">行を追加</button>
 								   		<button class="btn btn-danger btn-lg btn-block" id="delRow">行を削除</button>
 								   	</div>
-
+								   	<div id="video" class="display-none"></div>
 							    </div>
 							</div>
 						</div>
