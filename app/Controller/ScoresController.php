@@ -3,7 +3,7 @@
 class ScoresController extends AppController{
 
     public $paginate=array(
-        "limit"=>20,
+        "limit"=>10,
         "order"=>array("Score.id"=>"DESC")
     );
 
@@ -84,7 +84,7 @@ class ScoresController extends AppController{
 
             //ユーザ名が＠から始まる場合はそのIDからTwitterのアイコンを取得する
             $first_letter=mb_substr($scores[$i]["Score"]["username"],0,1);
-            $scores[$i]["Score"]["iconurl"]="http://solt9029.sakura.ne.jp/Tests/don.png";//デフォルトのアイコン画像はどん
+            $scores[$i]["Score"]["iconurl"]="http://editmaster.solt9029.com/img/don.png";//デフォルトのアイコン画像はどん
             if($first_letter==="@" || $first_letter==="＠"){
                 $scores[$i]["Score"]["iconurl"]=$this->Twitter->getIcon(mb_substr($scores[$i]["Score"]["username"],1));
             }
