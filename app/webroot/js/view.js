@@ -21,7 +21,11 @@
     itemSelector : '.card',     // selector for all items you'll retrieve
     debug     : true,
     dataType    : 'html',
-    loading:{finishedMsg:''}
+    loading:{
+      finishedMsg:'',
+      img:"../img/loading.png",//loading.pngは１ｐｘの何もない画像です。なんか指定しないとデフォルトの変な画像が出ちゃうのでこれで仕方なく回避
+      msgText:""
+    }
   },function(){
     init();
   });
