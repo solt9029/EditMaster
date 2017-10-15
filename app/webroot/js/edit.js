@@ -1,6 +1,6 @@
 function onYouTubeIframeAPIReady(){
 	$(window).on('load',function(){
-		const SONGLE_URL="https://widget.songle.jp/api/v1/song/beat.json?url=www.youtube.com/watch?v=";
+		const SONGLE_URL="http://widget.songle.jp/api/v1/song/beat.json?url=www.youtube.com/watch?v=";
 
 		$('div.split-pane').splitPane();
 
@@ -147,13 +147,20 @@ function onYouTubeIframeAPIReady(){
 
 			//BPMとOFFSETを自動計算
 			$.getJSON(SONGLE_URL+player.videoId).success(function(data){
-				let offset=(data.bars[0].start-140.0)/1000.0;
+				// console.dir(data.beats[0].start); // これでオフセットを取得することができる
+				// console.dir(data.beats);
+
+				// offsetの計算
+				let offset=(data.beats[0].start-140.0)/1000.0; // -140は多分システム的にデフォルトで入れておくと丁度良かったやつ
 				player.offset=offset;
 				$("#offset").val(player.offset);
-				//4小節目の3拍目から2小節目の0拍目までの間を平均する
-				let interval=(data.bars[5].beats[3].start-data.bars[2].beats[0].start)/15.0;
-				let bpm=60000.0/interval;
-				player.bpm=bpm;
+
+				// BPMの計算
+				let bpmSum = 0;
+				for (let i = 20; i < data.beats.length - 20; i++) {
+					bpmSum += data.beats[i].bpm;
+				}
+				player.bpm = bpmSum / (data.beats.length - 40);
 				$("#bpm").val(player.bpm);
 			}).error(function(data){
 
