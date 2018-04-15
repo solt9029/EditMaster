@@ -7,61 +7,82 @@ class ScoresController extends AppController{
         "order"=>array("Score.id"=>"DESC")
     );
 
-	//トップ画面
-	public function index(){
-	}
+    //トップ画面
+    public function index(){
+    }
 
     //ヘルプ画面
     public function help(){
     }
 
-	//編集画面
-	public function edit(){
-		$id=$this->request->query("id");
-        $env=env("WEB_APP_ENV");
+    //編集画面
+    public function edit(){
+        $id = $this->request->query("id");
+        $env = env("WEB_APP_ENV");
         $this->set("env",$env);
-		if(isset($id)){
-			//loadして表示
-            $load_data=$this->Score->find("first",array("conditions"=>array("Score.id"=>$id)));
-            //リクエストされたidの譜面が見つからなかった場合
-            if($load_data==null){
-                $this->redirect(array("action"=>"edit"));
-            }
-            $this->set("comment",$load_data["Score"]["comment"]);
-            $this->set("user_name",$load_data["Score"]["username"]);
-            $this->set("video_id",$load_data["Score"]["videoid"]);
-            $this->set("bpm",$load_data["Score"]["bpm"]);
-            $this->set("offset",$load_data["Score"]["offset"]);
-            $serialized_array_nums=$load_data["Score"]["nums"];
-            $array_nums=unserialize($load_data["Score"]["nums"]);
-            $this->set("array_nums",$array_nums);
-		}
-	}
+        $twitter_card_settings = '<meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="創作の達人">
+        <meta name="twitter:description" content="誰もが知っている太鼓ゲーム。実は譜面を叩くだけでなく、創作譜面も面白い。創作の達人でオリジナルの譜面を創作しよう。誰でも簡単に始められる、創作譜面支援アプリ。">
+        <meta name="twitter:image" content="http://editmaster.solt9029.com/img/twittercard.png">
+        <meta name="twitter:url" content="http://editmaster.solt9029.com">
+        <meta name="twitter:site" content="@solt9029">
+        <meta name="twitter:creator" content="@solt9029">';
+        
+        if (isset($id)) {
+            //loadして表示
+            $load_data = $this->Score->find("first", array("conditions" => array("Score.id" => $id)));
 
-	//保存処理
-	public function save(){
-		//ajaxからのアクセスでなければindexを表示する
+            //リクエストされたidの譜面が見つからなかった場合
+            if($load_data == null){
+                $this->redirect(array("action" => "edit"));
+            }
+
+            $this->set("comment", $load_data["Score"]["comment"]);
+            $this->set("user_name", $load_data["Score"]["username"]);
+            $this->set("video_id", $load_data["Score"]["videoid"]);
+            $this->set("bpm", $load_data["Score"]["bpm"]);
+            $this->set("offset", $load_data["Score"]["offset"]);
+            $serialized_array_nums = $load_data["Score"]["nums"];
+            $array_nums = unserialize($load_data["Score"]["nums"]);
+            $this->set("array_nums", $array_nums);
+            
+            // その譜面に関する情報をTwitterカードに設定する
+            $twitter_card_settings = '<meta name="twitter:card" content="summary">
+            <meta name="twitter:title" content="【創作の達人】創作譜面 from ' . $load_data['Score']['username'] . '">
+            <meta name="twitter:description" content="' . $load_data['Score']['comment'] . '">
+            <meta name="twitter:image" content="http://i.ytimg.com/vi/' . $load_data['Score']['videoid'] . '/mqdefault.jpg">
+            <meta name="twitter:url" content="http://editmaster.solt9029.com/Score/edit?id=' . $id . '">
+            <meta name="twitter:site" content="@solt9029">
+            <meta name="twitter:creator" content="@solt9029">';
+        }
+
+        $this->set('twitter_card_settings', $twitter_card_settings);
+    }
+
+    //保存処理
+    public function save(){
+        //ajaxからのアクセスでなければindexを表示する
         if(!$this->request->is('ajax')){
-        	$this->redirect(array("action"=>"index"));
+            $this->redirect(array("action"=>"index"));
         }
 
         $input_json_data=$this->request->input();//jsonデータ
         $input_object_data=json_decode($input_json_data);//objectデータに変更
 
         $save_data=array(
-        	"username"=>$input_object_data->username,
-        	"comment"=>$input_object_data->comment,
-        	"videoid"=>$input_object_data->videoid,
-        	"bpm"=>$input_object_data->bpm,
-        	"offset"=>$input_object_data->offset,
-        	"nums"=>serialize($input_object_data->nums),
-        	"date"=>date("Ymd")
+            "username"=>$input_object_data->username,
+            "comment"=>$input_object_data->comment,
+            "videoid"=>$input_object_data->videoid,
+            "bpm"=>$input_object_data->bpm,
+            "offset"=>$input_object_data->offset,
+            "nums"=>serialize($input_object_data->nums),
+            "date"=>date("Ymd")
         );
 
         $message=$this->Score->checkSaveData($save_data);
 
-    	//何もバリデーションチェックに引っかからなかった場合保存する
-    	if($message==""){
+        //何もバリデーションチェックに引っかからなかった場合保存する
+        if($message==""){
             $this->Score->save($save_data);
             $score=$this->Score->find("first",array("fields"=>"MAX(Score.id) as max_id"));
             $message="success".$score[0]["max_id"];
@@ -70,10 +91,10 @@ class ScoresController extends AppController{
         $this->response->body($message);
 
         return $this->response;
-	}
+    }
 
-	//一覧画面
-	public function view(){
+    //一覧画面
+    public function view(){
         $this->loadModel("YouTubeData");
         $this->loadModel("Twitter");
         $scores=$this->paginate("Score");
@@ -91,6 +112,6 @@ class ScoresController extends AppController{
         }
 
         $this->set("scores",$scores);
-	}
+    }
 }
 ?>

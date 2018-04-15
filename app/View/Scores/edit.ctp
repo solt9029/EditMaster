@@ -60,6 +60,9 @@
 	echo $this->Html->script("edit");
 	?>
 
+	<!-- twitterカード設定 -->
+	<?php echo $twitter_card_settings; ?>
+
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top banner">
