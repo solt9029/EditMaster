@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <?php echo $this->element("meta"); ?>
+    <?php 
+    echo $this->element("meta");
+    echo $this->element('twitter_card');
+    ?>
     <?php
     echo $this->Html->css("bootstrap");
     echo $this->Html->script("jquery");
