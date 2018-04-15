@@ -61,7 +61,13 @@
 	?>
 
 	<!-- twitterカード設定 -->
-	<?php echo $twitter_card_settings; ?>
+	<?php
+	if (isset($twitter_card_settings)) {
+		echo $twitter_card_settings;
+	} else {
+		echo $this->element('twitter_card');
+	}
+	?>
 
 </head>
 <body>
