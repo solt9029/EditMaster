@@ -16,7 +16,7 @@ EditMaster/で以下のコマンドを打ちPHP関連のライブラリをイン
 composer install
 ```
 
-EditMaster/docker/で以下のコマンドを打ちバックグラウンドでサーバコンテナを立ち上げる。
+EditMaster/docker.editmaster/で以下のコマンドを打ちバックグラウンドでサーバコンテナを立ち上げる。
 
 ```
 docker-compose up -d
@@ -43,3 +43,17 @@ class DATABASE_CONFIG {
 ```
 
 これでhttp://(docker machineのIPアドレス):8007にアクセスすることで見ることができる。
+
+# バックアップについて
+
+EditMaster/backups/に本番環境にてダンプしたSQLが入っている。
+
+バックアップファイルを使う場合には、EditMaster/docker.editmaster/sql/scores.sqlを取り除き、そのバックアップファイルに置き換える。
+
+本番環境でバックアップファイルを作成する際には、dbに入って以下のコマンドを打つ。（ https://qiita.com/macer_fkm/items/d920ff77f0f5ae5484f9 ）
+
+```
+mysqldump -u root -p editmaster > editmaster_dump.sql
+```
+
+その後、TeraTermなどを使って転送する。（ https://qiita.com/go-to/items/409e32116213bdf4b1ce ）
