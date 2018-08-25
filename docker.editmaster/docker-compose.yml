@@ -1,5 +1,6 @@
 web:
   build: .
+  dockerfile: Dockerfile-web
   ports:
     - "8007:80"
   links:
@@ -15,3 +16,10 @@ db:
   environment:
     MYSQL_ROOT_PASSWORD: phpapptest
     MYSQL_DATABASE: editmaster
+cron:
+  build: .
+  dockerfile: Dockerfile-cron
+  links:
+    - db
+  volumes:
+    - ./dump:/dump

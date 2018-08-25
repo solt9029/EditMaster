@@ -1,0 +1,13 @@
+FROM ubuntu:16.04
+
+# DEBIAN_FRONTENT noninteractiveがないとapt-get install -y mysql-serverのときにパスワードが求められて固まる。
+# ただし、DEBIAN_FRONTEND noninteractiveを設定していると、mysqlが使えなくなってる。
+# （今回はmysqldumpを使うことが目的なのでOKとする）
+ENV DEBIAN_FRONTEND noninteractive  
+
+RUN apt-get update && apt-get install -y cron && apt-get install -y mysql-server
+RUN echo "0 0 * * * root /dump/backup.sh" > /etc/cron.d/backup
+ADD ./dump/backup.sh /dump/
+RUN chmod 0755 /dump/backup.sh
+
+CMD ["cron", "-f"]
