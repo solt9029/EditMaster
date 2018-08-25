@@ -44,7 +44,17 @@ class DATABASE_CONFIG {
 
 これでhttp://(docker machineのIPアドレス):8007にアクセスすることで見ることができる。
 
-# バックアップについて
+# バックアップについて（今）
+
+本番環境にて、/docker.editmaster/dump/の中にダンプファイルが毎日cronサービスによりたまるようになっている。
+
+ダンプファイルをローカルに持ってくるにはTeraTermなど使って転送する。（ https://qiita.com/go-to/items/409e32116213bdf4b1ce ）
+
+Googleドライブにてバックアップファイルは管理している。
+
+バックアップファイルを使う場合には、EditMaster/docker.editmaster/sql/scores.sqlを取り除き、そのバックアップファイルに置き換える。
+
+# バックアップについて（昔：手作業）
 
 EditMaster/backups/に本番環境にてダンプしたSQLが入っている。
 
